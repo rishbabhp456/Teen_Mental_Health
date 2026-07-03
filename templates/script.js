@@ -73,15 +73,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle Forgot Password Form Submission (Placeholder)
+    // Handle Forgot Password Form Submission
     const forgotPasswordForm = document.getElementById('forgotPasswordForm');
     if (forgotPasswordForm) {
         forgotPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             hideMessage('forgotPasswordMessage');
-            // In a real app, you'd send an email here
-            displayMessage('forgotPasswordMessage', 'If an account with that email exists, a reset link has been sent.', true);
-            forgotPasswordForm.reset();
+
+            const formData = new FormData(forgotPasswordForm);
+            const response = await fetch('/forgot_password', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                displayMessage('forgotPasswordMessage', data.message, true);
+                forgotPasswordForm.reset();
+                setTimeout(() => {
+                    window.location.href = '/login_page';
+                }, 2000);
+            } else {
+                displayMessage('forgotPasswordMessage', data.message || 'Password reset failed', false);
+            }
         });
     }
 
@@ -126,8 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (data.status === 'success') {
-                const meaning = data.prediction === 1 ? 'Yes' : 'No';
-                displayMessage('predictionResult', `Prediction: ${meaning} (1 means Yes, 0 means No)`, true);
+                // Display the meaningful message returned from backend
+                const isSuccess = data.prediction === 0; // 0 = not depressed (success), 1 = depressed (warning)
+                displayMessage('predictionResult', data.message, isSuccess);
             } else {
                 displayMessage('predictionResult', `Prediction failed: ${data.message || 'Unknown error'}`, false);
             }

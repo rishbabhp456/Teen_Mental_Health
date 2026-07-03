@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}Login - Teen Mental Health{% endblock %}
-{% block header_title %}Login to Your Account{% endblock %}
+{% block header_title %}Welcome back{% endblock %}
 
 {% block content %}
 <div class="form-card">
-    <form id="loginForm">
+    <p class="subtitle">Sign in to continue to your depression screening dashboard.</p>
+    <form id="loginForm" class="auth-form">
         <div class="form-group">
             <label for="username">Username</label>
             <i class="fas fa-user form-icon"></i>
@@ -20,8 +21,8 @@
     </form>
     <p id="loginMessage" class="message"></p>
     <div class="links">
-        <a href="{{ url_for('register_page') }}">Don't have an account? Register</a>
-        <a href="{{ url_for('forgot_password_page') }}">Forgot Password?</a>
+        <a href="{{ url_for('register_page') }}">Create account</a>
+        <a href="{{ url_for('forgot_password_page') }}">Forgot password?</a>
     </div>
 </div>
 {% endblock %}
