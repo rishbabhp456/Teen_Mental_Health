@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Teen Mental Health{% endblock %}
+{% block header_title %}Create a New Account{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="reg_username">Username</label>
+            <i class="fas fa-user form-icon"></i>
+            <input type="text" id="reg_username" name="user_name" class="form-control" placeholder="Choose a username" required>
+        </div>
+        <div class="form-group">
+            <label for="reg_password">Password</label>
+            <i class="fas fa-lock form-icon"></i>
+            <input type="password" id="reg_password" name="password" class="form-control" placeholder="Create a password" required>
+        </div>
+        <div class="form-group">
+            <label for="reg_email">Email</label>
+            <i class="fas fa-envelope form-icon"></i>
+            <input type="email" id="reg_email" name="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="reg_contact">Contact</label>
+            <i class="fas fa-phone form-icon"></i>
+            <input type="text" id="reg_contact" name="contact" class="form-control" placeholder="Enter your contact number">
+        </div>
+        <div class="form-group">
+            <label for="reg_dob">Date of Birth</label>
+            <i class="fas fa-calendar-alt form-icon"></i>
+            <input type="date" id="reg_dob" name="dob" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="reg_gender">Gender</label>
+            <i class="fas fa-venus-mars form-icon"></i>
+            <select id="reg_gender" name="gender" class="form-control">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+    <p id="registerMessage" class="message"></p>
+    <div class="links">
+        <a href="{{ url_for('login_page') }}">Already have an account? Login</a>
+    </div>
+</div>
+{% endblock %}

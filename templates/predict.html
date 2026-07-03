@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Predict Depression - Teen Mental Health{% endblock %}
+{% block header_title %}Teen Depression Prediction{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <form id="predictionForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" class="form-control" min="10" max="19" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" class="form-select" required>
+                        <!-- Options will be loaded dynamically by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="daily_social_media_hours">Daily Social Media (hours)</label>
+                    <input type="number" id="daily_social_media_hours" name="daily_social_media_hours" class="form-control" step="0.1" min="0" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sleep_hours">Sleep Hours</label>
+                    <input type="number" id="sleep_hours" name="sleep_hours" class="form-control" step="0.1" min="0" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="screen_time_before_sleep">Screen Time Before Sleep (hours)</label>
+                    <input type="number" id="screen_time_before_sleep" name="screen_time_before_sleep" class="form-control" step="0.1" min="0" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class.form-group">
+                    <label for="academic_performance">Academic Performance (0-10)</label>
+                    <input type="number" id="academic_performance" name="academic_performance" class="form-control" step="0.1" min="0" max="10" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="physical_activity">Physical Activity (hours/week)</label>
+                    <input type="number" id="physical_activity" name="physical_activity" class="form-control" step="0.1" min="0" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="social_interaction_level">Social Interaction Level</label>
+                    <select id="social_interaction_level" name="social_interaction_level" class="form-select" required>
+                        <!-- Options will be loaded dynamically by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="stress_level">Stress Level (1-10)</label>
+                    <input type="number" id="stress_level" name="stress_level" class="form-control" min="1" max="10" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="anxiety_level">Anxiety Level (1-10)</label>
+                    <input type="number" id="anxiety_level" name="anxiety_level" class="form-control" min="1" max="10" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="addiction_level">Addiction Level (1-10)</label>
+                    <input type="number" id="addiction_level" name="addiction_level" class="form-control" min="1" max="10" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="platform_usage">Primary Platform Usage</label>
+            <select id="platform_usage" name="platform_usage" class="form-select" required>
+                <!-- Options will be loaded dynamically by JavaScript -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Get Prediction</button>
+    </form>
+    <div id="predictionResult" class="message mt-4"></div>
+    <div class="links">
+        <a href="{{ url_for('login_page') }}">Back to Login</a>
+    </div>
+</div>
+{% endblock %}
