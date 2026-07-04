@@ -5,6 +5,7 @@ env/
 ENV/
 
 # Python
+.ipynb_checkpoints
 __pycache__/
 *.py[cod]
 *$py.class
