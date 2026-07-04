@@ -14,6 +14,12 @@ class Teen_Depression:
         with open(config.ML_MODEL_PATH,'rb') as f:
             self.model = pkl.load(f)
         return
+
+    def load_scaler(self):
+        """This method is used to load the saved StandardScaler"""
+        with open(config.STD_SCALER_PATH, 'rb') as f:
+            self.scaler = pkl.load(f)
+        return
     
     def load_column_data(self):
         """"this method is used to load column data"""
@@ -24,6 +30,7 @@ class Teen_Depression:
     def create_test_df(self):
         """This method is used to create testing DataFrame"""
         self.load_model()
+        self.load_scaler()
         self.load_column_data()
 
         test_array = np.zeros((1,self.model.n_features_in_))
@@ -44,7 +51,11 @@ class Teen_Depression:
         platform_usage_idx = np.where(self.model.feature_names_in_ == platform_usage)[0]
         test_array[0,platform_usage_idx] = 1
         self.test_df = pd.DataFrame(test_array, columns=self.model.feature_names_in_)
-        return test_array
+        self.test_df_scaled = pd.DataFrame(
+            self.scaler.transform(self.test_df),
+            columns=self.test_df.columns
+        )
+        return self.test_df_scaled
     
     def predict_depression_label(self,user_input_data):
         """This method is used to predict depression level"""
@@ -60,8 +71,8 @@ class Teen_Depression:
         self.data['anxiety_level'] = int(self.data['anxiety_level'])
         self.data['addiction_level'] = int(self.data['addiction_level'])
         
-        self.create_test_df() #Calling function for dataframe creation
-        self.prediction = self.model.predict(self.test_df)
+        self.create_test_df()  # Calling function for dataframe creation
+        self.prediction = self.model.predict(self.test_df_scaled)
         print(f"Predicted Depression Label (1 means Yes 0 means No): {self.prediction}")
         return self.prediction
     
