@@ -77,7 +77,7 @@ def login():
         session['user_name'] = user_name
         access_token = create_access_token(
             identity=user_name,
-            expires_delta=datetime.timedelta(minutes=20)
+            expires_delta=datetime.timedelta(minutes=5)
         )
         return jsonify({
             "status": "success",
